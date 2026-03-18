@@ -26,11 +26,8 @@ g.add((rtempActuator.node, RDT["isParameter"], Literal("true", datatype=XSD.bool
 
 temp = ObservableProperty(g, MINE["T"], None)
 oc_rtemp = OptimalConditionDouble(g, MINE["oc_temp"], temp, 3600, (30, False), (35, False))
-node = BNode()
-g.add((node, RDF["type"], OWL["Restriction"]))
-g.add((node, OWL["onProperty"], RDT["hasValue"]))
-g.add((node, OWL["hasValue"], Literal("20.0", datatype=XSD.double)))
-g.add((temp.node, RDF["type"], node))
+# triple directe trouvable par SPARQL
+g.add((temp.node, RDT["hasValue"], Literal("20.0", datatype=XSD.double)))
 
 tempSensor = Sensor(g, MINE["TempSensor"], [temp])
 tempMeasure = Measure(g, MINE["TempMeasure"])

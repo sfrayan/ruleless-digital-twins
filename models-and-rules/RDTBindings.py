@@ -122,11 +122,8 @@ class Measure(Node):
         # g.add((self.node, RDF["type"], SSN["Input"]))
         g.add((self.node, RDF["type"], SSN["Output"]))
         g.add((self.node, RDF["type"], SSN["Property"]))
-        node = BNode()
-        g.add((node, RDF["type"], OWL["Restriction"]))
-        g.add((node, OWL["onProperty"], RDT["hasValue"]))
-        g.add((node, OWL["hasValue"], Literal("0.0", datatype=XSD.double)))
-        g.add((self.node, RDF["type"], node))
+        g.add((self.node, RDT["hasValue"], Literal("0.0", datatype=XSD.double)))
+
 
 class Sensor(Node):
     def __init__(self, g, name, observes: ObservableProperty | list[ObservableProperty]):        

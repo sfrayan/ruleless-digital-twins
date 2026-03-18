@@ -2,11 +2,17 @@
   "profiles": {
     "SmartNode": {
       "commandName": "Project",
-      "commandLineArgs": "--appsettings appsettings-incubator.json"
+      "commandLineArgs": "--appsettings appsettings-incubator.json",
+      "environmentVariables": {
+        "AU_INCUBATOR_RABBITMQ_HOST_NAME": "rabbitmq-server"
+      }
     },
     "SmartNode-Incubator": {
       "commandName": "Project",
-      "commandLineArgs": "--appsettings appsettings-incubator.json"
+      "commandLineArgs": "--appsettings appsettings-incubator.json",
+      "environmentVariables": {
+        "AU_INCUBATOR_RABBITMQ_HOST_NAME": "rabbitmq-server"
+      }
     },
     "NordPool-model": {
       "commandName": "Project",
