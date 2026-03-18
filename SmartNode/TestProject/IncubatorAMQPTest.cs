@@ -6,9 +6,10 @@ namespace TestProject {
     // NB: First time you might see a single wild {c} value in the 20s. Rerunning then gives you around 5.
     public class IncubatorAMQPTest {
         [Theory(Explicit = true)]
-        [InlineData("192.168.64.1")] // Should probably come from the outside since it depends where your Incubator-container is running.
+        [InlineData("localhost")] // Should probably come from the outside since it depends where your Incubator-container is running.
         public async Task TestConnect(string hostName) {
-            var i = new IncubatorAdapter(hostName, TestContext.Current.CancellationToken);
+            var host = Environment.GetEnvironmentVariable("AU_INCUBATOR_RABBITMQ_HOST_NAME") ?? hostName;
+            var i = new IncubatorAdapter(host, TestContext.Current.CancellationToken);
             await i.Connect();
             var consumerTag = await i.Setup();
             IncubatorFields? myData = null;
