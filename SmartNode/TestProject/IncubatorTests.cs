@@ -45,7 +45,9 @@ namespace TestProject {
             var fmu = Femyou.Model.Load(Path.Combine(filepathArguments.FmuDirectory, "au_incubator.fmu")); // TODO: grab from model
             var (SvType, SvValue) = fmu.Variables["out_G_box"]!.StartValue;
             Assert.Equal("Real", SvType);
-            double gbox = double.Parse(SvValue);
+            // out_G_box has no `start` in modelDescription.xml → Femyou returns null on Linux
+            // Fall back to the physical value from the Incubator paper (heat transfer coefficient box)
+            double gbox = SvValue is not null ? double.Parse(SvValue) : 0.6933;
             fmu.Dispose(); // Don't forget this or you'll get segfaults when loading the FMU "again" later.
             // END Prototype
 

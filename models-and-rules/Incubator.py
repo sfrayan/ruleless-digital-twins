@@ -26,6 +26,9 @@ g.add((rtempActuator.node, RDT["isParameter"], Literal("true", datatype=XSD.bool
 
 temp = ObservableProperty(g, MINE["T"], None)
 oc_rtemp = OptimalConditionDouble(g, MINE["oc_temp"], temp, 3600, (30, False), (35, False))
+
+SSN = Namespace("http://www.w3.org/ns/ssn/")
+g.add((oc_rtemp.node, SSN["forProperty"], temp.node))
 # triple directe trouvable par SPARQL
 g.add((temp.node, RDT["hasValue"], Literal("20.0", datatype=XSD.double)))
 
