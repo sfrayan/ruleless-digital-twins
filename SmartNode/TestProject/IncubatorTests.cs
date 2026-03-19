@@ -130,7 +130,7 @@ namespace TestProject {
 #pragma warning disable xUnit1051 // Probably okay for now since we gave the Adapter the token already.
             i.Connect().Wait();
             var consumerTag = i.Setup().Result;
-
+            Thread.Sleep(TimeSpan.FromSeconds(5)); // wait first message
             var monitor = new MapekMonitor(mock);
             Assert.True(AMQTempSensor._onceOnly);
             var cache = monitor.Monitor().Result;

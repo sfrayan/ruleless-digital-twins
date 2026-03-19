@@ -9,9 +9,11 @@ model au_incubator
   parameter Real in_room_temperature(start = 20);
   parameter Real in_box_temperature(start = 20);
   
-  Real power_out_box;
-  Real total_power_box;
-  Real T;
+  output Real power_out_box;
+  output Real total_power_box;
+  output Real T;
+  output Real out_G_box;
+  output Real out_C_air;
 
 initial equation
   T = in_box_temperature;
@@ -20,6 +22,8 @@ equation
   power_out_box = G_box * (T - in_room_temperature);
   total_power_box = GetPowerIn(in_heater_state, in_heater_voltage, in_heater_current) - power_out_box;
   der(T) = (1 / C_air) * total_power_box;
+  out_G_box = G_box;
+  out_C_air = C_air;
 end au_incubator;
 
 function GetPowerIn
