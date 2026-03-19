@@ -43,7 +43,7 @@ namespace TestProject {
             // TODO: Prototype populate cache from FMU.
             // If we're going to do this, we have to check that we correctly override with values from model.
             var fmu = Femyou.Model.Load(Path.Combine(filepathArguments.FmuDirectory, "au_incubator.fmu")); // TODO: grab from model
-            var (SvType, SvValue) = fmu.Variables["G_box"]!.StartValue;
+            var (SvType, SvValue) = fmu.Variables["out_G_box"]!.StartValue;
             Assert.Equal("Real", SvType);
             double gbox = double.Parse(SvValue);
             fmu.Dispose(); // Don't forget this or you'll get segfaults when loading the FMU "again" later.
