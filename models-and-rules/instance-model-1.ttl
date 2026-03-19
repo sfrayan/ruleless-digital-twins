@@ -6,9 +6,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <http://www.semanticweb.org/ivans/ontologies/2025/instance-model-1#> .
 
-# Namespace raccourci pour les entites Home Assistant de Rayan
-@prefix ha: <http://www.semanticweb.org/rayan/ontologies/2025/ha#> .
-
 <http://www.semanticweb.org/ivans/ontologies/2025/instance-model-1> rdf:type owl:Ontology ;
                                                                      owl:imports <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins> .
 
@@ -65,7 +62,6 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 #################################################################
 
 ###  AverageTemperature
-# Valeur moyenne calculee entre Sensor1 et Sensor2 : (14.0 + 14.0) / 2 = 14.0 => sous le seuil optimal de 18°C
 :AverageTemperature rdf:type owl:NamedIndividual ,
                              <http://www.w3.org/ns/ssn/Output> ,
                              <http://www.w3.org/ns/ssn/Property> ;
@@ -101,7 +97,6 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  DecreasedTemperature
-# Valeur sous le seuil optimal => le moteur doit inferer qu'il faut chauffer
 :DecreasedTemperature rdf:type owl:NamedIndividual ,
                                <http://www.w3.org/ns/ssn/Input> ,
                                <http://www.w3.org/ns/ssn/Output> ,
@@ -110,11 +105,10 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  Dehumidifier
-# Lie a l'entite HA : switch.dehumidifier
 :Dehumidifier rdf:type owl:NamedIndividual ,
                        <http://www.w3.org/ns/sosa/Actuator> ;
-              rdfs:seeAlso ha:entity/switch/dehumidifier ;
-              rdfs:label "Dehumidifier (HA: switch.dehumidifier)" ;
+              rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#switch_dehumidifier> ;
+              rdfs:label "Dehumidifier (HA: switch.dehumidifier)"^^xsd:string ;
               <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/enacts> :EnergyConsumptionIncrease ,
                                                                                                :RoomHumidityDecrease ;
               <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasActuatorState> "0"^^xsd:int ,
@@ -142,11 +136,10 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  EnergyConsumptionMeter
-# Lie a l'entite HA : sensor.power_consumption
 :EnergyConsumptionMeter rdf:type owl:NamedIndividual ,
                                  <http://www.w3.org/ns/sosa/Sensor> ;
-                        rdfs:seeAlso ha:entity/sensor/power_consumption ;
-                        rdfs:label "Energy Meter (HA: sensor.power_consumption)" ;
+                        rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#sensor_power_consumption> ;
+                        rdfs:label "Energy Meter (HA: sensor.power_consumption)"^^xsd:string ;
                         <http://www.w3.org/ns/sosa/observes> :EnergyConsumption ;
                         <http://www.w3.org/ns/ssn/implements> :EnergyConsumptionMeterProcedure .
 
@@ -165,11 +158,10 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  FloorHeating
-# Lie a l'entite HA : switch.office_floor_heating (l'actionneur que le moteur doit activer si T < 18°C)
 :FloorHeating rdf:type owl:NamedIndividual ,
                        <http://www.w3.org/ns/sosa/Actuator> ;
-              rdfs:seeAlso ha:entity/switch/office_floor_heating ;
-              rdfs:label "Floor Heating (HA: switch.office_floor_heating)" ;
+              rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#switch_office_floor_heating> ;
+              rdfs:label "Floor Heating (HA: switch.office_floor_heating)"^^xsd:string ;
               <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/enacts> :EnergyConsumptionIncrease ,
                                                                                                :RoomTemperatureIncrease ;
               <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasActuatorState> "0"^^xsd:int ,
@@ -177,11 +169,10 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  Heater
-# Lie a l'entite HA : climate.hvac
 :Heater rdf:type owl:NamedIndividual ,
                  <http://www.w3.org/ns/sosa/Actuator> ;
-        rdfs:seeAlso ha:entity/climate/hvac ;
-        rdfs:label "Heater (HA: climate.hvac)" ;
+        rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#climate_hvac> ;
+        rdfs:label "Heater (HA: climate.hvac)"^^xsd:string ;
         <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/enacts> :EnergyConsumptionIncrease ,
                                                                                          :RoomTemperatureIncrease ;
         <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasActuatorState> "0"^^xsd:int ,
@@ -190,17 +181,15 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  HumiditySensor
-# Lie a l'entite HA : sensor.outside_humidity (ou remplace par ton capteur d'humidite bureau si tu en as un)
 :HumiditySensor rdf:type owl:NamedIndividual ,
                          <http://www.w3.org/ns/sosa/Sensor> ;
-                rdfs:seeAlso ha:entity/sensor/outside_humidity ;
-                rdfs:label "Humidity Sensor (HA: sensor.outside_humidity)" ;
+                rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#sensor_outside_humidity> ;
+                rdfs:label "Humidity Sensor (HA: sensor.outside_humidity)"^^xsd:string ;
                 <http://www.w3.org/ns/sosa/observes> :RoomHumidity ;
                 <http://www.w3.org/ns/ssn/implements> :HumiditySensorProcedure .
 
 
 ###  HumiditySensorMeasuredHumidity
-# Valeur d'humidite actuelle (sous le seuil de 30%) => le moteur detects que l'humidite est trop basse
 :HumiditySensorMeasuredHumidity rdf:type owl:NamedIndividual ,
                                          <http://www.w3.org/ns/ssn/Output> ,
                                          <http://www.w3.org/ns/ssn/Property> ;
@@ -236,11 +225,10 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  Motion
-# Lie a l'entite HA : binary_sensor.office_motion — valeur "true" = mouvement detecte => la condition de temperature est active
 :Motion rdf:type owl:NamedIndividual ,
                  <http://www.w3.org/ns/sosa/ObservableProperty> ;
-        rdfs:seeAlso ha:entity/binary_sensor/office_motion ;
-        rdfs:label "Motion (HA: binary_sensor.office_motion)" ;
+        rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#binary_sensor_office_motion> ;
+        rdfs:label "Motion (HA: binary_sensor.office_motion)"^^xsd:string ;
         <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "true"^^xsd:boolean .
 
 
@@ -251,17 +239,15 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  MotionSensor
-# Lie a l'entite HA : binary_sensor.office_motion
 :MotionSensor rdf:type owl:NamedIndividual ,
                        <http://www.w3.org/ns/sosa/Sensor> ;
-              rdfs:seeAlso ha:entity/binary_sensor/office_motion ;
-              rdfs:label "Motion Sensor (HA: binary_sensor.office_motion)" ;
+              rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#binary_sensor_office_motion> ;
+              rdfs:label "Motion Sensor (HA: binary_sensor.office_motion)"^^xsd:string ;
               <http://www.w3.org/ns/sosa/observes> :Motion ;
               <http://www.w3.org/ns/ssn/implements> :MotionSensorProcedure .
 
 
 ###  MotionSensorMeasuredMotion
-# true = mouvement detecte dans le bureau => la condition optimale de temperature est active
 :MotionSensorMeasuredMotion rdf:type owl:NamedIndividual ,
                                      <http://www.w3.org/ns/ssn/Output> ,
                                      <http://www.w3.org/ns/ssn/Property> ;
@@ -275,7 +261,6 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  OfficeHumidityLowerLimit
-# Seuil bas d'humidite : 30% => en dessous le Dehumidifier ne doit pas tourner
 :OfficeHumidityLowerLimit rdf:type owl:NamedIndividual ,
                                    <http://www.w3.org/ns/ssn/Property> ;
                           <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "30.0"^^xsd:double .
@@ -305,14 +290,12 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  OfficeHumidityUpperLimit
-# Seuil haut d'humidite : 50%
 :OfficeHumidityUpperLimit rdf:type owl:NamedIndividual ,
                                    <http://www.w3.org/ns/ssn/Property> ;
                           <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "50.0"^^xsd:double .
 
 
 ###  OfficeTemperatureLowerLimit
-# Seuil bas de temperature : 18°C => en dessous FloorHeating doit etre active
 :OfficeTemperatureLowerLimit rdf:type owl:NamedIndividual ,
                                       <http://www.w3.org/ns/ssn/Property> ;
                              <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "18.0"^^xsd:double .
@@ -350,14 +333,12 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  OfficeTemperatureUpperLimit
-# Seuil haut de temperature : 22°C => au dessus le chauffage doit s'arreter
 :OfficeTemperatureUpperLimit rdf:type owl:NamedIndividual ,
                                       <http://www.w3.org/ns/ssn/Property> ;
                              <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "22.0"^^xsd:double .
 
 
 ###  RoomHumidity
-# Humidite actuelle de la piece : 8% => SOUS le seuil de 30% => condition d'humidite NON satisfaite
 :RoomHumidity rdf:type owl:NamedIndividual ,
                        <http://www.w3.org/ns/sosa/ObservableProperty> ;
               <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "8.065931477520403"^^xsd:double .
@@ -371,11 +352,9 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  RoomM370
-# La piece bureau — heberge tous les capteurs et actionneurs
-# MotionSensor ajoute car il conditionne l'activation de la condition de temperature
 :RoomM370 rdf:type owl:NamedIndividual ,
                    <http://www.w3.org/ns/sosa/Platform> ;
-          rdfs:label "Bureau M370 (Home Assistant)" ;
+          rdfs:label "Bureau M370 (Home Assistant)"^^xsd:string ;
           <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasSimulationModel> :RoomM370FMU ;
           <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/minimizes> :EnergyConsumption ;
           <http://www.w3.org/ns/sosa/hosts> :Dehumidifier ,
@@ -397,7 +376,6 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  RoomTemperature
-# Temperature actuelle de la piece : 14°C => SOUS le seuil de 18°C => le moteur doit inferer FloorHeating = ON
 :RoomTemperature rdf:type owl:NamedIndividual ,
                           <http://www.w3.org/ns/sosa/ObservableProperty> ;
                  <http://www.semanticweb.org/ivans/ontologies/2025/ruleless-digital-twins/hasValue> "14.0"^^xsd:double .
@@ -423,17 +401,15 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  TemperatureSensor1
-# Lie a l'entite HA : sensor.office_temperature_sensor_1 (raw = input_number.office_temperature_sensor_1_raw)
 :TemperatureSensor1 rdf:type owl:NamedIndividual ,
                              <http://www.w3.org/ns/sosa/Sensor> ;
-                    rdfs:seeAlso ha:entity/sensor/office_temperature_sensor_1 ;
-                    rdfs:label "Temperature Sensor 1 (HA: sensor.office_temperature_sensor_1)" ;
+                    rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#sensor_office_temperature_sensor_1> ;
+                    rdfs:label "Temperature Sensor 1 (HA: sensor.office_temperature_sensor_1)"^^xsd:string ;
                     <http://www.w3.org/ns/sosa/observes> :RoomTemperature ;
                     <http://www.w3.org/ns/ssn/implements> :TemperatureSensor1Procedure .
 
 
 ###  TemperatureSensor1MeasuredTemperature
-# Valeur lue depuis HA : 14°C => SOUS le seuil optimal de 18°C => FloorHeating doit etre active
 :TemperatureSensor1MeasuredTemperature rdf:type owl:NamedIndividual ,
                                                 <http://www.w3.org/ns/ssn/Input> ,
                                                 <http://www.w3.org/ns/ssn/Output> ,
@@ -448,17 +424,15 @@ owl:qualifiedCardinality rdf:type owl:AnnotationProperty .
 
 
 ###  TemperatureSensor2
-# Lie a l'entite HA : sensor.office_temperature_sensor_2 (raw = input_number.office_temperature_sensor_2_raw)
 :TemperatureSensor2 rdf:type owl:NamedIndividual ,
                              <http://www.w3.org/ns/sosa/Sensor> ;
-                    rdfs:seeAlso ha:entity/sensor/office_temperature_sensor_2 ;
-                    rdfs:label "Temperature Sensor 2 (HA: sensor.office_temperature_sensor_2)" ;
+                    rdfs:seeAlso <http://www.semanticweb.org/rayan/ontologies/2025/ha#sensor_office_temperature_sensor_2> ;
+                    rdfs:label "Temperature Sensor 2 (HA: sensor.office_temperature_sensor_2)"^^xsd:string ;
                     <http://www.w3.org/ns/sosa/observes> :RoomTemperature ;
                     <http://www.w3.org/ns/ssn/implements> :TemperatureSensor2Procedure .
 
 
 ###  TemperatureSensor2MeasuredTemperature
-# Valeur lue depuis HA : 14°C => meme valeur que Sensor1 pour ce test
 :TemperatureSensor2MeasuredTemperature rdf:type owl:NamedIndividual ,
                                                 <http://www.w3.org/ns/ssn/Input> ,
                                                 <http://www.w3.org/ns/ssn/Output> ,
